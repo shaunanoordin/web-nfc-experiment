@@ -1,0 +1,19 @@
+:root {
+  font-family: Tahoma, sans-serif;
+  font-size: 16px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+}
+
+h2 {
+  font-size: 1.125em;
+}
