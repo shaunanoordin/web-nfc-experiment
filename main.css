@@ -17,3 +17,8 @@ section {
 h2 {
   font-size: 1.125em;
 }
+
+textarea {
+  width: 100%;
+  min-height: 16em;
+}
