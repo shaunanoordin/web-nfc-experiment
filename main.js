@@ -1,20 +1,24 @@
 class App {
   constructor () {
     this.html = {
-      generalStatus: document.getElementById('general-status'),
+      status: document.getElementById('status'),
+      
     };
     
-    this.render();
+    if (this.isNfcCompatible()) {
+      this.updateStatus('Your device & browser supports NFC.', 'ok');
+    } else {
+      this.updateStatus('Your device & browser don\'t support NFC.', 'error');
+    }
   }
   
   render () {
-    if (this.isNfcCompatible()) {
-      this.html.generalStatus.textContent = 'Your device is NFC compatible!';
-      this.html.generalStatus.className = 'status-ok';
-    } else {
-      this.html.generalStatus.textContent = 'Your device & browser don\'t support NFC.';
-      this.html.generalStatus.className = 'status-error';
-    }
+    
+  }
+  
+  updateStatus (text, type) {
+    this.html.status.textContent = text;
+    this.html.status.className = `status-${type}`;
   }
   
   isNfcCompatible () {
