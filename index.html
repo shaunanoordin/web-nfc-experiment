@@ -15,11 +15,24 @@
     </section>
     <section>
       <h2>Controls</h2>
-      <button id="scan-button">Scan</button>
+      <button id="scan-button">Scan NFC Tag</button>
     </section>
     <section>
       <h2>Output</h2>
       <textarea id="data"></textarea>
+    </section>
+    <section>
+      <h2>Readme</h2>
+      <p>This app should (?) let you read a bunch of different NFC tags.</p>
+      <p>Here are the convoluted steps necessary to get it to work as of May 2020:</p>
+      <ol>
+        <li>Use an Android device and the Chrome web browser (ver 81+).</li>
+        <li>In Chrome, go to <code>about:flags</code> (or <code>chrome://flags</code>, same thing) to enable some crazy experimental settings.</li>
+        <li>Enable the following flags: <code>#enable-experimental-web-platform-features</code> and <code>#enable-webnfc</code></li>
+        <li>On your Android device, enable NFC functionality.</li>
+        <li>Click the 'Scan NFC Tag' button and tap your phone onto a handy NFC thingamabob.</li>
+        <li>Behold as gibberish data is read by this experimental web app. It makes no sense because each NFC tag's stored data is contextual to its specific use, but hey, it's being read!</li>
+      </ol>
     </section>
   </main>
 </body>
