@@ -37,7 +37,7 @@ class App {
       }
       
       this.action = 'scanning';
-      this.updateStatus('Scanning... please tap this device on an NFC tag')
+      this.updateStatus('Scanning... please tap this device on an NFC tag', 'ok')
       
       await reader.scan();
     } catch (err) {
