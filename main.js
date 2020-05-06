@@ -18,7 +18,9 @@ class App {
   
   async doScan () {
     try {
+      // Prevent multiple concurrent scan actions
       if (this.action !== 'idle') return;
+      this.html.scanButton.disabled = true;
       
       const reader = new NDEFReader();
       
@@ -32,8 +34,9 @@ class App {
             + `data: ${record.data} \r\n`;
         }
       
-        this.action = 'idle';
         this.updateData(`> ${(new Date())} \r\n${data}`);
+        
+        // WARNING: the device does not stop scanning!
       }
       
       this.action = 'scanning';
