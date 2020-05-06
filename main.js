@@ -20,7 +20,25 @@ class App {
   }
   
   async doScan () {
-    this.updateData(`Beep beep ${(new Date())}`)
+    try {
+      const reader = new NDEFReader()
+      
+      await reader.scan();
+      
+      reader.onreading = (event) => {
+        const decoder = new TextDecoder();
+        let data = ''
+        for (const record of event.message.records) {
+          data += `Record Type: ${record.recordType} \r\n`
+            + `MIME type: ${record.mediaType} \r\n`
+            + `data: ${record.data} \r\n`;
+        }
+        
+        this.updateData(`> ${(new Date())} \r\n${data}`);
+      }
+    } catch (err) {
+      this.updateStatus(err, 'error');
+    }
   }
   
   updateStatus (text, type) {
