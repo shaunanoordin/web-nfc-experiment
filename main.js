@@ -7,6 +7,7 @@ class App {
     };
     
     this.html.scanButton.onclick = this.doScan.bind(this);
+    this.action = 'idle';
     
     if (this.isNfcCompatible()) {
       this.updateStatus('Your device & browser supports NFC.', 'ok');
@@ -15,27 +16,30 @@ class App {
     }
   }
   
-  render () {
-    
-  }
-  
   async doScan () {
     try {
-      const reader = new NDEFReader()
+      if (this.action !== 'idle') return;
       
-      await reader.scan();
+      const reader = new NDEFReader();
       
       reader.onreading = (event) => {
         const decoder = new TextDecoder();
         let data = ''
         for (const record of event.message.records) {
-          data += `Record Type: ${record.recordType} \r\n`
+          data += `event.message: ${event.message} \r\n`
+            + `Record Type: ${record.recordType} \r\n`
             + `MIME type: ${record.mediaType} \r\n`
             + `data: ${record.data} \r\n`;
         }
-        
+      
+        this.action = 'idle';
         this.updateData(`> ${(new Date())} \r\n${data}`);
       }
+      
+      this.action = 'scanning';
+      this.updateStatus('Scanning... please tap this device on an NFC tag')
+      
+      await reader.scan();
     } catch (err) {
       this.updateStatus(err, 'error');
     }
@@ -54,18 +58,6 @@ class App {
     return !!(window.NDEFReader);
   }
 }
-
-/*function debugObject (obj, depth = 0) {
-  let output = '';
-  Object.keys(obj).forEach((key) => {
-    
-    
-    output += '.'.repeat(depth)
-      + key + ':' + obj
-  })
-
-}*/
-
 
 window.onload = function init () {
   window.app = new App();
